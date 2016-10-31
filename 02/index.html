@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Web Worker 02</title>
+  </head>
+  <body>
+    
+    <p>web worker sample 02</p>
+
+    <script type="text/javascript">
+      
+      
+      function loopSleep(_loopLimit,_interval, _mainFunc){
+        var loopLimit = _loopLimit;
+        var interval = _interval;
+        var mainFunc = _mainFunc;
+        var i = 0;
+        var loopFunc = function () {
+        var result = mainFunc(i);
+        if (result === false) {
+          // break機能
+          return;
+        }
+        i = i + 1;
+        if (i < loopLimit) {
+            setTimeout(loopFunc, interval);
+          }
+        }
+        loopFunc();
+      }
+      
+      var worker = new Worker('worker.js');
+
+      worker.addEventListener(
+        'message',
+        function (e) {
+          console.log('worker interrupt');
+        },
+        false
+      );
+
+      worker.postMessage('msg');
+
+      loopSleep(
+        3,
+        1000,
+        function (i) {
+          console.log('main thread loop');
+        }
+      );
+
+    </script>
+
+  </body>
+</html>

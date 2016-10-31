@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Web Worker 01</title>
+  </head>
+  <body>
+    
+    <p>web worker sample 01</p>
+
+    <script type="text/javascript">
+      
+      var worker = new Worker('worker.js');
+
+      function messageReturned (e) {
+        console.log('Message returned.');
+      }
+
+      worker.addEventListener('message', messageReturned, false);
+
+      worker.postMessage({'lang': 'c', 'statement': 'switch'});
+
+    </script>
+
+  </body>
+</html>

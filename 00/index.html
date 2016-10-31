@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8"/>
+    <title>Web Worker 00</title>
+  </head>
+  <body>
+
+    <p>web worker sample 00</p>
+    
+    <script type="text/javascript">
+
+    var worker = new Worker('worker.js');
+
+    worker.addEventListener(
+      'message',
+      function (e) {
+        console.log('index.html::addEventListener()');
+        console.log(e);
+        console.log('Worker said : ', e.data);
+      },
+      false
+    );
+
+    worker.postMessage('Hello, world!');
+    
+    </script>
+  </body>
+</html>
